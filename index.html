@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SVG Crusher</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+        background: #3b5a6d;
+        color: white;
+        margin: 0;
+        padding: 0;
+        font: 14px sans-serif;
+    }
+
+    header {
+        background: #37a2e4;
+        padding: 1rem;
+        border-bottom: 5px solid rgba(0, 0, 0, 0.25);
+        margin-bottom: 3rem;
+    }
+
+    header svg {
+        width: 3rem;
+        height: 3rem;
+        margin-right: 3rem;
+        filter: invert();
+    }
+
+    header h1 {
+        display: inline-block;
+        line-height: 3rem;
+        vertical-align: top;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        margin: 0 auto;
+        max-width: 900px;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .svg-preview {
+        background: #f7f7f7;
+        border: 5px solid rgba(0, 0, 0, 0.25);
+        box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        margin: 0 20px;
+        width: 400px;
+        height: 400px;
+        color: #999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    .svg-preview svg {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border: 1px dashed rgba(0, 0, 0, 0.2);
+    }
+
+    .hot {
+        border-color: rgba(100, 100, 255, 0.5);
+    }
+
+    .svg-container {
+        text-align: center;
+    }
+
+    .path-data-container {
+        margin: 0 auto;
+        display: none;
+    }
+
+    .has-file .path-data-container {
+        display: block;
+    }
+
+    .path-data-container button {
+        border: 5px solid #b1bdc5;
+        border-right: none;
+        border-bottom: none;
+        background: transparent;
+        font: 12px monospace;
+        color: rgba(255, 255, 255, 0.3);
+        outline: none;
+        float: left;
+        padding: 5px;
+    }
+
+    .path-data-container button.active {
+        background: rgba(0, 0, 0, 0.25);
+        color: #fff;
+    }
+
+    .path-data-container button:last-child {
+        border-right: 5px solid #b1bdc5;
+        box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    #path-data {
+        width: 50rem;
+        overflow: hidden;
+        border: 5px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.2);
+        padding: 0.5rem;
+        margin: 0;
+        height: 2.5rem;
+        background: #3b5a6d;
+        white-space: nowrap;
+        resize: none;
+        font: 12px monospace;
+        color: #aaa;
+        outline: none;
+        text-overflow: ellipsis;
+    }
+
+    #path-data:focus {
+        border-color: rgba(100, 100, 255, 0.6);
+    }
+
+    #before-file-input {
+        display: none;
+    }
+
+    .bytes {
+        display: none;
+        color: #aaa;
+    }
+
+    .bytes span {
+        color: #f7f7f7;
+        font-weight: bold;
+    }
+
+    .has-file .bytes {
+        display: block;
+    }
+
+
+    </style>
+</head>
+<body>
+<header>
+    <svg id="logo" viewBox="0 0 1000 1000"><path d="M284,868C284,950,227,986,139,986C79,986,38,976,0,961L20,871C52,886,83,898,131,898C152,898,158,893,158,886C158,861,0,881,1,755C2,680,58,639,143,639C190,639,234,648,271,659L251,749C229,739,191,729,152,729C135,729,124,731,124,741C125,766,284,750,284,868zM291,646L423,646L479,868L536,646L668,646L567,980L391,980L291,646zM1000,795L1000,961C966,976,923,987,861,987C753,987,671,924,671,814C671,706,753,640,867,640C921,640,952,646,986,655L969,747C949,741,925,735,892,735C827,735,802,766,802,814C802,867,840,891,876,891C880,891,884,890,888,890L888,795L1000,795zM0,399L1000,399L1000,501L0,501zM60,520L110,559L160,519M260,520L310,559L360,519M460,521L510,560L560,520M660,521L710,560L760,520M860,521L910,560L960,520M510,20C490,20,460,20,460,60L460,380L560,380L560,60C561,20,530,20,510,20z"/></svg>
+    <h1>SVG Crusher</h1>
+</header>
+<div class="container">
+    <div id="before" class="svg-well">
+        <div id="before-preview" class="svg-preview">Drop file here<br>(or click to upload)</div>
+        <p class="bytes">Before: <span id="before-bytes"></span> bytes</p>
+        <input type="file" id="before-file-input">
+    </div>
+    <div id="after" class="svg-well">
+        <div id="after-preview" class="svg-preview">Crushed file here<br>(click to download)</div>
+        <p class="bytes">After: <span id="after-bytes"></span> bytes</p>
+    </div>
+</div>
+<div class="container">
+    <div class="path-data-container">
+    <div class="path-data-buttons">
+        <button id="mode-svg" class="active">SVG</button>
+        <button id="mode-path-data">Path Data</button>
+    </div>
+    <textarea id="path-data"></textarea></div>
+</div>
+<footer>
+    <p>SVG Crusher was made by <a href="https://www.enigmeta.com/">Frederik De Bleser</a>. Source on <a href="https://github.com/fdb/svgcrush">GitHub</a>.</p>
+</footer>
+<script src="static/js/script.js"></script>
+</body>
+</html>
