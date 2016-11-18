@@ -36,24 +36,36 @@
         padding: 0;
     }
 
+    h2 {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 2rem;
+    }
+
     .container {
         margin: 0 auto;
         max-width: 900px;
-        display: flex;
-        flex-wrap: wrap;
         text-align: center;
         margin-bottom: 2rem;
     }
 
+    .flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
     .intro {
         background: #144461;
-        padding: 2rem;
-        font-size: 1.1rem;
+        padding: 1rem 0;
+        font-size: 0.8rem;
         line-height: 1.8rem;
         color: rgba(255, 255, 255, 0.5);
-        padding-bottom: 1rem;
         margin-bottom: 3rem;
         border-bottom: 5px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .intro .container {
+        margin-bottom: 0;
     }
 
     .intro p {
@@ -121,6 +133,11 @@
         box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
 
+    .path-data-buttons {
+        width: 50rem;
+        text-align: left;
+    }
+
     #path-data {
         width: 50rem;
         overflow: hidden;
@@ -160,6 +177,28 @@
         display: block;
     }
 
+    .demo-files {
+        margin: 0;
+        padding: 0;
+    }
+
+    .demo-files li {
+        display: inline-block;
+        list-style: none;
+        background: #f7f7f7;
+        border: 5px solid rgba(0, 0, 0, 0.25);
+        box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        margin: 0 20px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .demo-files li img {
+        width: 100%;
+        height: 100%;
+    }
+
     footer {
         margin: 0 auto;
         max-width: 900px;
@@ -187,7 +226,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container flex">
     <div id="before" class="svg-well">
         <div id="before-preview" class="svg-preview">Drop file here<br>(or click to upload)</div>
         <p class="bytes">Before: <span id="before-bytes"></span> bytes</p>
@@ -198,7 +237,7 @@
         <p class="bytes">After: <span id="after-bytes"></span> bytes</p>
     </div>
 </div>
-<div class="container">
+<div class="container flex">
     <div class="path-data-container">
     <div class="path-data-buttons">
         <button id="mode-svg" class="active">SVG</button>
@@ -206,8 +245,16 @@
     </div>
     <textarea id="path-data"></textarea></div>
 </div>
+<div class="container">
+    <h2>Try it with some examples:</h2>
+    <ul class="demo-files">
+        <li><img class="demo-file" src="static/svg/demo-centroid.svg" alt=""></li>
+        <li><img class="demo-file" src="static/svg/demo-stack.svg" alt=""></li>
+        <li><img class="demo-file" src="static/svg/demo-shuffle.svg" alt=""></li>
+    </ul>
+</div>
 <footer>
-    <p>SVG Crush was made by <a href="https://www.enigmeta.com/">Frederik De Bleser</a>. Source on <a href="https://github.com/fdb/svgcrush">GitHub</a>.</p>
+    <p>SVG Crush was made by <a href="http://www.enigmeta.com/">Frederik De Bleser</a>. Source on <a href="https://github.com/fdb/svgcrush">GitHub</a>.</p>
 </footer>
 <script src="static/js/script.js"></script>
 </body>

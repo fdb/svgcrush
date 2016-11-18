@@ -65,6 +65,12 @@ function splitFileExtension(name) {
   return [baseName, ext];
 }
 
+function baseName(name) {
+  let slashPos = name.lastIndexOf('/');
+  if (slashPos === -1) return name;
+  return name.substring(slashPos + 1);
+}
+
 class Transform {
   constructor(m) {
     this.m = Array.isArray(m) ? m : [1, 0, 0, 1, 0, 0];
@@ -651,7 +657,6 @@ function uploadFiles(files) {
 }
 
 function downloadFile() {
-  console.log('dl');
   if (afterSvg.length === 0) return;
   let [baseName, ext] = splitFileExtension(beforeFileName);
   let afterFileName = baseName + '.min' + ext;
@@ -686,6 +691,12 @@ function updateTextArea() {
   }
 }
 
+function selectDemoFile() {
+  let url = this.getAttribute('src');
+  beforeFileName = baseName(url);
+  fetch(url).then(res => res.text()).then(crushSvg);
+}
+
 beforePreview.addEventListener('dragover', highlightDropArea);
 beforePreview.addEventListener('dragenter', highlightDropArea);
 beforePreview.addEventListener('drop', dropFile);
@@ -700,3 +711,6 @@ svgModeButton.addEventListener('click', svgMode);
 pathDataModeButton.addEventListener('click', pathDataMode);
 pathDataTextArea.addEventListener('click', function() { this.select(); });
 
+Array.from(document.querySelectorAll('.demo-file')).forEach(el => {
+  el.addEventListener('mousedown', selectDemoFile);
+});
