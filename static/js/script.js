@@ -164,11 +164,15 @@ class Path {
   addEllipse(cx, cy, rx, ry) {
     let dx = rx * KAPPA;
     let dy = ry * KAPPA;
-    this.moveTo(cx - rx, cx);
-    this.curveTo(cx - rx, cx - dy, cx - dx, cy - ry, cx, cy - ry);
-    this.curveTo(cx + dx, cy - ry, cx + rx, cx - dy, cx + rx, cx);
-    this.curveTo(cx + rx, cx + dy, cx + dx, cy + ry, cx, cy + ry);
-    this.curveTo(cx - dx, cy + ry, cx - rx, cx + dy, cx - rx, cx);
+    let left = cx - rx;
+    let right = cx + rx;
+    let top = cy - ry;
+    let bottom = cy + ry;
+    this.moveTo(left, cy);
+    this.curveTo(left, cy - dy, cx - dx, top, cx, top);
+    this.curveTo(cx + dx, top, right, cy - dy, right, cy);
+    this.curveTo(right, cy + dy, cx + dx, bottom, cx, bottom);
+    this.curveTo(cx - dx, bottom, left, cy + dy, left, cy);
     this.close();
   }
 
