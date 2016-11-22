@@ -514,6 +514,7 @@ function parseEllipse(el) {
   let ry = parseFloat(el.getAttribute('ry'));
   let path = new Path();
   path.addEllipse(cx, cy, rx, ry);
+  path = parseTransform(el, path);
   return path;
 }
 
@@ -523,6 +524,7 @@ function parseCircle(el) {
   let r = parseFloat(el.getAttribute('r'));
   let path = new Path();
   path.addEllipse(cx, cy, r, r);
+  path = parseTransform(el, path);
   return path;
 }
 
